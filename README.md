@@ -1,38 +1,54 @@
-# README.md — My Restaurant Adventure
+# My Restaurant Adventure
 
-## Descrição
+**My Restaurant Adventure** is a full-stack web resource management game developed with **Flask**, **SQLite**, **HTML**, **CSS** and **JavaScript**.
 
-**My Restaurant Adventure** é um jogo web de gestão de recursos desenvolvido no âmbito da unidade curricular de Desenvolvimento de Aplicações Web (DAW).
+The project was developed as part of the **Web Application Development curricular unit (DAW)** in the **Bachelor's Degree in Management Information Systems** at **Instituto Politécnico de Setúbal**.
 
-O jogador começa com recursos iniciais e deve construir um império de restauração através da compra de restaurantes, produção de dinheiro, recolha de lucros, evolução dos negócios e contratação de gestores. Ao longo do jogo, o utilizador ganha reputação, sobe de rank e compete com outros jogadores numa leaderboard global.
+The player can create an account, log in, buy restaurants, manage money and reputation, start timed productions, collect profits, upgrade businesses, hire managers, unlock ranks and compete on a leaderboard.
 
-O projeto foi desenvolvido com Flask, SQLite, HTML, CSS e JavaScript, seguindo uma estrutura simples inspirada no padrão MVC.
-
----
-
-## Objetivo do Jogo
-
-O objetivo principal é expandir a rede de restaurantes do jogador, gerindo bem os recursos disponíveis e maximizando o dinheiro acumulado.
-
-Durante o jogo, o utilizador pode:
-
-* Criar uma conta;
-* Iniciar e terminar sessão;
-* Comprar restaurantes;
-* Aguardar pela construção dos restaurantes;
-* Iniciar produções;
-* Acompanhar barras de progresso;
-* Recolher lucros;
-* Evoluir restaurantes;
-* Contratar gestores;
-* Ganhar reputação;
-* Subir de rank;
-* Consultar a leaderboard;
-* Consultar o histórico de ações.
+The application follows a simple structure inspired by the **MVC pattern**, separating backend logic, database operations, templates and static frontend files.
 
 ---
 
-## Tecnologias Utilizadas
+## Project Overview
+
+The main goal of the game is to expand a restaurant business empire by managing resources efficiently.
+
+During the game, the player can:
+
+* Create an account;
+* Log in and log out;
+* Buy restaurants;
+* Wait for restaurant construction;
+* Start timed productions;
+* Follow progress bars;
+* Collect profits manually;
+* Upgrade restaurants;
+* Hire managers;
+* Gain reputation;
+* Unlock ranks;
+* Check the leaderboard;
+* Check the action history.
+
+---
+
+## Screenshots
+
+### Dashboard
+
+![Dashboard](docs/screenshots/dashboard.png)
+
+### Leaderboard
+
+![Leaderboard](docs/screenshots/leaderboard.png)
+
+### Ranks
+
+![Ranks](docs/screenshots/ranks.png)
+
+---
+
+## Technologies Used
 
 ### Backend
 
@@ -48,7 +64,7 @@ Durante o jogo, o utilizador pode:
 * JavaScript
 * Fetch API
 
-### Ferramentas
+### Tools
 
 * Git
 * GitHub
@@ -56,98 +72,99 @@ Durante o jogo, o utilizador pode:
 
 ---
 
-## Funcionalidades Implementadas
+## Main Features
 
-### Sistema de Utilizadores
+### User System
 
-* Registo de novos utilizadores;
-* Login de utilizadores existentes;
-* Logout;
-* Gestão de sessões com Flask-Login;
-* Proteção de páginas através de autenticação.
+* User registration;
+* User login;
+* User logout;
+* Session management with Flask-Login;
+* Protected pages using authentication;
+* Password hashing with Werkzeug security functions.
 
-### Gestão de Restaurantes
+### Restaurant Management
 
-* Compra de restaurantes;
-* Restaurantes fixos como slots de construção;
-* Construção temporizada;
-* Produção temporizada;
-* Recolha manual de lucro;
-* Evolução temporizada dos restaurantes;
-* Cálculo de custos, lucros e recompensas por nível.
+* Restaurant purchase system;
+* Fixed restaurants used as construction slots;
+* Timed construction;
+* Timed production;
+* Manual profit collection;
+* Timed restaurant upgrades;
+* Cost, profit and reward calculation based on restaurant level.
 
-### Restaurantes Disponíveis
+### Available Restaurants
 
-O jogo utiliza restaurantes fixos, funcionando como slots de progressão. Cada restaurante tem custos, tempos, lucros e recompensas diferentes.
+The game uses fixed restaurant types as progression slots. Each restaurant has its own cost, construction time, production time, base profit and reputation rewards.
 
-Restaurantes existentes:
+Available restaurants:
 
 * Banca de Cachorros;
 * Café;
 * Croissanteria;
 * Hamburgueria.
 
-Cada restaurante pode estar em diferentes estados:
+Each restaurant can have different states:
 
-* Bloqueado;
-* Em construção;
-* Pronto;
-* A produzir;
-* Completo;
-* A evoluir.
+* Locked;
+* Building;
+* Ready;
+* Producing;
+* Completed;
+* Upgrading.
 
-### Sistema de Gestores
+### Manager System
 
-* Cada restaurante tem um gestor associado;
-* O gestor pode ser contratado quando o restaurante já está desbloqueado;
-* A contratação exige dinheiro e reputação;
-* O gestor automatiza o reinício da produção após o jogador recolher o lucro;
-* A recolha do lucro continua a ser feita manualmente pelo jogador.
+* Each restaurant has an associated manager;
+* A manager can be hired after the restaurant is unlocked;
+* Hiring a manager requires both money and reputation;
+* Managers automatically restart production after the player collects profit;
+* Profit collection remains manual.
 
-### Sistema de Progressão
+### Progression System
 
-* Sistema de reputação;
-* Reputação total acumulada;
-* Sistema de ranks;
-* Notificação quando o jogador sobe de rank;
-* Página com todos os ranks disponíveis;
-* Rank atual apresentado na sidebar e na leaderboard.
+* Reputation system;
+* Lifetime reputation tracking;
+* Rank system based on total accumulated reputation;
+* Notification when the player reaches a new rank;
+* Page listing all available ranks;
+* Current rank displayed in the sidebar and leaderboard.
 
 ### Leaderboard
 
-* Leaderboard global dos jogadores;
-* Ordenação por dinheiro total acumulado;
-* Apresentação do Top 10 jogadores;
-* Destaque visual para os três primeiros lugares;
-* Atualização através de Fetch API;
-* Apresentação do rank e respetivo emoji de cada jogador.
+* Global player leaderboard;
+* Ranking based on total accumulated money earned;
+* Top 10 players displayed;
+* Visual highlight for the top three positions;
+* Data loaded dynamically using Fetch API;
+* Each player is displayed with their current rank and rank icon.
 
-### Histórico de Ações
+### Action History
 
-* Registo das principais ações do jogador;
-* Histórico limitado às ações mais recentes;
-* Mensagens com data e hora;
-* Registo de compras, recolhas de lucro, evoluções e contratação de gestores.
+* Records the player's main actions;
+* Displays the most recent actions;
+* Stores action messages with date and time;
+* Includes purchases, profit collection, upgrades and manager hiring.
 
 ### Interface
 
-* Dashboard principal;
-* Página de gestores;
-* Página de leaderboard;
-* Página de ranks;
-* Página de histórico;
-* Mensagens temporárias de sucesso e erro;
-* Confirmações antes de ações importantes;
-* Barras de progresso para construção, produção e evolução;
-* Preservação da posição da página após ações na dashboard;
-* Layout responsivo para diferentes tamanhos de ecrã.
+* Main dashboard;
+* Managers page;
+* Leaderboard page;
+* Ranks page;
+* Action history page;
+* Temporary success and error messages;
+* Confirmation modal for important actions;
+* Progress bars for construction, production and upgrades;
+* Scroll position preservation after dashboard actions;
+* Responsive layout for different screen sizes.
 
 ---
 
-## Estrutura do Projeto
+## Project Structure
 
 ```text
-daw-projeto/
+my-restaurant-adventure/
 ├── models/
 │   ├── database.py
 │   └── user.py
@@ -159,39 +176,68 @@ daw-projeto/
 ├── templates/
 │   ├── dashboard.html
 │   ├── history.html
+│   ├── layout.html
 │   ├── leaderboard.html
 │   ├── login.html
 │   ├── managers.html
 │   ├── ranks.html
 │   └── register.html
+├── docs/
+│   └── screenshots/
+│       ├── dashboard.png
+│       ├── leaderboard.png
+│       └── ranks.png
 ├── server.py
 ├── views.py
 ├── settings.py
-├── README.md
+├── requirements.txt
 ├── api_documentacao.md
 ├── base_dados.sql
-└── game.db
+├── .gitignore
+└── README.md
 ```
 
 ---
 
-## Instalação
+## Installation
 
-### 1. Criar ambiente virtual
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/Guii-06/my-restaurant-adventure.git
+```
+
+```bash
+cd my-restaurant-adventure
+```
+
+### 2. Create a virtual environment
 
 ```bash
 python -m venv .venv
 ```
 
-### 2. Ativar ambiente virtual
+### 3. Activate the virtual environment
 
-No Windows PowerShell:
+On Windows PowerShell:
 
 ```bash
 .\.venv\Scripts\Activate.ps1
 ```
 
-### 3. Instalar dependências
+On macOS/Linux:
+
+```bash
+source .venv/bin/activate
+```
+
+### 4. Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+If `requirements.txt` is not available, install the dependencies manually:
 
 ```bash
 pip install flask flask-login
@@ -199,15 +245,15 @@ pip install flask flask-login
 
 ---
 
-## Execução
+## Running the Application
 
-Para iniciar o servidor Flask:
+Start the Flask server:
 
 ```bash
 python server.py
 ```
 
-Depois, abrir o navegador em:
+Then open the application in the browser:
 
 ```text
 http://127.0.0.1:8080
@@ -215,52 +261,107 @@ http://127.0.0.1:8080
 
 ---
 
-## Base de Dados
+## Database
 
-A aplicação utiliza SQLite.
+The application uses **SQLite**.
 
-A base de dados é criada automaticamente quando o projeto é executado, através da classe `Database`, presente no ficheiro:
+The database is created automatically when the project runs through the `Database` class located in:
 
 ```text
 models/database.py
 ```
 
-As principais tabelas são:
+The main database tables are:
 
 * `USER`;
 * `BUSINESS_TYPE`;
 * `USER_BUSINESS`;
 * `ACTION_HISTORY`.
 
-A tabela `BUSINESS_TYPE` guarda os restaurantes fixos do jogo, enquanto a tabela `USER_BUSINESS` guarda os restaurantes comprados por cada jogador.
+### Table Purpose
+
+| Table            | Purpose                                                                                             |
+| ---------------- | --------------------------------------------------------------------------------------------------- |
+| `USER`           | Stores registered users, authentication data, money, reputation and accumulated progression values. |
+| `BUSINESS_TYPE`  | Stores the fixed restaurant types available in the game.                                            |
+| `USER_BUSINESS`  | Stores the restaurants purchased by each player, including level, state, manager and timers.        |
+| `ACTION_HISTORY` | Stores the most recent actions performed by each player.                                            |
+
+The `BUSINESS_TYPE` table stores the fixed restaurants of the game, while `USER_BUSINESS` stores the restaurants owned by each player.
+
+The SQL schema is also documented in:
+
+```text
+base_dados.sql
+```
 
 ---
 
 ## API
 
-O projeto inclui uma rota API para a leaderboard:
+The project includes one JSON API route used by the leaderboard.
 
-```http
-GET /api/leaderboard
+### GET `/api/leaderboard`
+
+Returns the top 10 players ordered by total accumulated money earned.
+
+This route is used by the frontend through the Fetch API.
+
+Example response:
+
+```json
+[
+  {
+    "position": 1,
+    "username": "Guii06",
+    "total_earned": 100300,
+    "rank_name": "Mestre da Tasca",
+    "rank_icon": "🍻"
+  }
+]
 ```
 
-Esta rota devolve os 10 melhores jogadores em formato JSON e é utilizada pelo frontend através da Fetch API.
+More details are available in:
+
+```text
+api_documentacao.md
+```
 
 ---
 
-## Validações e Segurança
+## Security and Validations
 
-O projeto inclui várias validações para impedir ações inválidas, tais como:
+The project includes several backend validations to prevent invalid actions, such as:
 
-* Aceder a páginas protegidas sem login;
-* Comprar restaurantes inexistentes;
-* Produzir restaurantes que não pertencem ao utilizador;
-* Recolher lucro de restaurantes de outro utilizador;
-* Evoluir restaurantes de outro utilizador;
-* Comprar gestores para restaurantes de outro utilizador;
-* Submeter login ou registo com campos vazios.
+* Accessing protected pages without being logged in;
+* Buying restaurants that do not exist;
+* Producing with restaurants that do not belong to the logged user;
+* Collecting profit from another user's restaurant;
+* Upgrading another user's restaurant;
+* Buying managers for another user's restaurant;
+* Registering or logging in with empty fields;
+* Buying the same restaurant more than once;
+* Upgrading restaurants above the maximum level.
 
-As passwords são guardadas através de hash, utilizando as funções de segurança do Werkzeug.
+Passwords are stored using hashes generated with Werkzeug security functions.
+
+SQL queries use parameterized values, reducing the risk of SQL injection.
+
+---
+
+## Technical Notes
+
+This project was developed for an academic environment and is not intended to be production-ready.
+
+Some improvements that could be implemented in a future version include:
+
+* Using POST instead of GET for actions that modify data;
+* Adding CSRF protection;
+* Moving business logic into a separate service layer;
+* Using SQLAlchemy instead of direct SQLite queries;
+* Using environment variables for sensitive configuration values;
+* Improving template inheritance to reduce repeated HTML;
+* Adding automated tests.
 
 ---
 
@@ -268,13 +369,24 @@ As passwords são guardadas através de hash, utilizando as funções de seguran
 
 Academic project submitted by:
 
-- Guilherme Monteiro
-- António Henriques
-- Gonçalo Gouveia
+* Guilherme Monteiro
+* António Henriques
+* Gonçalo Gouveia
 
 Main implementation and technical integration led by Guilherme Monteiro.
 
+---
+
 ## AI Assistance
 
-AI tools were used as support during the development process, mainly for debugging, code review, documentation improvement and learning assistance. The project was tested, adapted and integrated by the author to ensure understanding and functionality.
+AI tools were used as support during the development process, mainly for debugging, code review, documentation improvement and learning assistance.
+
+The project was tested, adapted and integrated by the main implementer to ensure understanding, functionality and consistency with the academic requirements.
+
+---
+
+## License
+
+This project was developed for academic and portfolio purposes.
+
 
