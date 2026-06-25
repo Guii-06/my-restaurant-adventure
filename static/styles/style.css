@@ -1,0 +1,1377 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #0b0c10;
+    color: #ffffff;
+}
+
+.layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar h1 {
+    font-size: 18px;
+    line-height: 1.1;
+    margin-bottom: 35px;
+}
+
+.sidebar h1 span {
+    color: #ff7a1a;
+}
+
+.player-info {
+    background-color: #1a1c27;
+    border: 1px solid #2c3040;
+    border-radius: 14px;
+    padding: 18px;
+    margin-bottom: 20px;
+}
+
+.player-info strong {
+    display: block;
+    margin-bottom: 6px;
+}
+
+.player-info p {
+    color: #8f93b8;
+}
+
+/* Sidebar uses flex so navigation and logout stay aligned */
+.sidebar {
+    width: 250px;
+    background-color: #11121a;
+    border-right: 1px solid #252838;
+    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Navigation links inside the sidebar */
+nav a {
+    display: block;
+    background-color: transparent;
+    color: #9fa3ca;
+    padding: 14px 16px;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Highlights only the selected page in the sidebar */
+nav a.active {
+    background-color: #2a1a14;
+    color: #ff7a1a;
+    border-left: 3px solid #ff7a1a;
+}
+
+/* Removes the old automatic highlight from the first menu item */
+nav a:first-child {
+    background-color: transparent;
+    color: #9fa3ca;
+    border-left: none;
+}
+
+/* Keeps the active style even when the active link is the first one */
+nav a.active:first-child {
+    background-color: #2a1a14;
+    color: #ff7a1a;
+    border-left: 3px solid #ff7a1a;
+}
+
+/* Logout stays at the bottom without overlapping the menu */
+.logout {
+    display: inline-block;
+    margin-top: auto;
+    background-color: #25283a;
+    color: #9fa3ca;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 14px 16px;
+    border-radius: 8px;
+    width: fit-content;
+}
+
+/* Hover effect for the logout button */
+.logout:hover {
+    background-color: #34384f;
+}
+
+.main-content {
+    flex: 1;
+    padding: 32px 42px;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 42px;
+}
+
+.topbar h2 {
+    font-size: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.resources {
+    display: flex;
+    gap: 18px;
+}
+
+.resource-box span {
+    display: block;
+    color: #8f93b8;
+    font-size: 13px;
+}
+
+.business-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px;
+}
+
+.business-card {
+    background-color: #171923;
+    border: 1px solid #2d3142;
+    border-radius: 14px;
+    padding: 20px;
+}
+
+.business-card.active {
+    border-color: #146c43;
+    background-color: #121f1d;
+}
+
+.business-card.locked {
+    opacity: 0.75;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 18px;
+}
+
+.card-header h3 {
+    font-size: 18px;
+    margin-bottom: 6px;
+}
+
+.card-header p {
+    color: #8f93b8;
+}
+
+
+.profit span {
+    display: block;
+    color: #8f93b8;
+    font-size: 13px;
+}
+
+.profit strong {
+    color: #00d26a;
+    font-size: 18px;
+}
+
+.business-card.locked .profit strong {
+    color: #ff7a1a;
+}
+
+.business-card > p {
+    color: #b8bbd8;
+    margin-bottom: 8px;
+}
+
+.manager-active {
+    color: #00d26a !important;
+    font-weight: bold;
+    border-top: 1px solid #2d3142;
+    border-bottom: 1px solid #2d3142;
+    padding: 12px 0;
+    margin: 14px 0;
+}
+
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 18px;
+}
+
+a {
+    display: inline-block;
+    background-color: #25283a;
+    color: #ffffff;
+    padding: 12px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    background-color: #34384f;
+}
+
+.main-btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    background-color: #22c55e;
+    color: white;
+    text-decoration: none;
+    padding: 16px 18px;
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.main-btn:hover {
+    background-color: #19a953;
+}
+
+.buy-btn {
+    display: block;
+    background-color: #ff7a1a;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.buy-btn:hover {
+    background-color: #e96a0f;
+}
+
+/* Secondary dark button used for upgrade */
+.secondary-btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    background-color: #252b45;
+    color: white;
+    text-decoration: none;
+    padding: 16px 18px;
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+
+/* Hover effect for the secondary upgrade button */
+.secondary-btn:hover {
+    background-color: #34384f;
+}
+
+/* Disabled button style used for inactive actions */
+.disabled-btn {
+    opacity: 0.9;
+    cursor: default;
+    pointer-events: none;
+}
+
+/* Prevents disabled main buttons from changing color on hover */
+.disabled-btn:hover {
+    background-color: #252b45;
+}
+
+.status-text {
+    display: inline-block;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-weight: bold;
+    background-color: #25283a;
+    color: #ffffff;
+}
+
+.manager-active {
+    color: #20c463;
+    font-weight: bold;
+}
+
+.buy-manager-available {
+    display: inline-block;
+    background-color: #20c463;
+    color: #ffffff;
+    padding: 12px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 14px;
+}
+
+.buy-manager-available:hover {
+    background-color: #19a953;
+}
+
+.owned-button {
+    display: inline-block;
+    background-color: #ff7a1a;
+    color: #ffffff;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-weight: bold;
+    margin-top: 14px;
+}
+
+/* Centers the authentication form on the page */
+.auth-page {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #0b0c10;
+}
+
+/* Main card used on login and register pages */
+.auth-card {
+    width: 380px;
+    background-color: #171923;
+    border: 1px solid #2d3142;
+    border-radius: 14px;
+    padding: 30px;
+}
+
+.auth-card h1 {
+    font-size: 24px;
+    margin-bottom: 25px;
+}
+
+.auth-card h1 span {
+    color: #ff7a1a;
+}
+
+.auth-card h2 {
+    margin-bottom: 20px;
+}
+
+.auth-card label {
+    display: block;
+    margin-bottom: 6px;
+    color: #b8bbd8;
+    font-weight: bold;
+}
+
+.auth-card input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 16px;
+    border-radius: 8px;
+    border: 1px solid #2d3142;
+    background-color: #11121a;
+    color: #ffffff;
+}
+
+.auth-card button {
+    width: 100%;
+    background-color: #ff7a1a;
+    color: #ffffff;
+    border: none;
+    padding: 13px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.auth-card button:hover {
+    background-color: #e96a0f;
+}
+
+.auth-card p {
+    margin-top: 18px;
+    color: #b8bbd8;
+}
+
+.auth-card a {
+    background: none;
+    padding: 0;
+    color: #ff7a1a;
+}
+
+/* Shows login and register validation errors */
+.error-message {
+    background-color: #3a1f1f;
+    color: #ff7a7a;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    font-weight: bold;
+}
+
+/* Uses the same visual language as the restaurants dashboard */
+.manager-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(320px, 1fr));
+    gap: 24px;
+    margin-top: 24px;
+}
+
+.manager-card {
+    background-color: #11162a;
+    border: 1px solid #222b45;
+    border-radius: 20px;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 300px;
+}
+
+.manager-card h3 {
+    margin: 0;
+    font-size: 22px;
+    color: #ffffff;
+}
+
+.manager-restaurant {
+    margin-top: 8px;
+    font-size: 16px;
+    color: #b7bde0;
+}
+
+.manager-details {
+    margin-top: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    color: #d9ddf3;
+    font-size: 16px;
+}
+
+/* Styles the main manager button used in every manager card */
+.manager-button {
+    margin-top: 28px;
+    width: 220px;
+    text-align: center;
+    padding: 14px 18px;
+    border-radius: 14px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 18px;
+    border: none;
+    display: inline-block;
+}
+
+/* Shows a blocked or unavailable manager action */
+.button-disabled {
+    background-color: #2b3150;
+    color: #c6cbe6;
+    cursor: not-allowed;
+}
+
+/* Shows that the manager can be bought */
+.button-buy {
+    background-color: #20c463;
+    color: #ffffff;
+}
+
+/* Shows that the manager was already bought */
+.button-owned {
+    background-color: #ff7a1a;
+    color: #ffffff;
+    cursor: default;
+}
+
+/* Shows extra information below the manager button */
+.manager-helper {
+    margin-top: 12px;
+    font-size: 15px;
+    color: #aeb5d6;
+}
+
+/* Styles the selected sidebar item */
+.sidebar-link.active {
+    background-color: #ff7a1a;
+    color: #ffffff;
+}
+
+/* Main card used to display the player's action history */
+.history-card {
+    background-color: #171923;
+    border: 1px solid #2d3142;
+    border-radius: 14px;
+    padding: 24px;
+    max-width: 900px;
+}
+
+/* Title shown above the history list */
+.history-card h3 {
+    font-size: 22px;
+    margin-bottom: 20px;
+}
+
+/* Vertical list containing the player's saved actions */
+.history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Individual history row with message and date */
+.history-item {
+    background-color: #11121a;
+    border: 1px solid #25283a;
+    border-radius: 10px;
+    padding: 16px;
+}
+
+/* Main text of each history action */
+.history-item p {
+    color: #ffffff;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+/* Date and time of each history action */
+.history-item span {
+    color: #9fa3ca;
+    font-size: 14px;
+}
+
+/* Text shown when the player has no saved actions yet */
+.empty-history {
+    color: #9fa3ca;
+    font-size: 16px;
+}
+
+/* Base style for temporary game messages */
+.game-message {
+    color: #ffffff;
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin-bottom: 24px;
+    font-weight: bold;
+    opacity: 1;
+}
+
+/* Success message shown after completed actions */
+.game-message.success {
+    background-color: #1a2a1f;
+    border: 1px solid #20c463;
+}
+
+/* Error message shown after failed actions */
+.game-message.error {
+    background-color: #3a1f1f;
+    border: 1px solid #ff4d4d;
+}
+
+/* Smoothly hides temporary game messages with JavaScript */
+.hide-message {
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+/* Dark overlay that covers the page when the confirmation modal is open */
+.confirm-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.72);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* Makes the confirmation modal visible */
+.confirm-modal.show-modal {
+    display: flex;
+}
+
+/* Main confirmation box styled like the game cards */
+.confirm-modal-box {
+    width: 420px;
+    background-color: #171923;
+    border: 1px solid #2d3142;
+    border-radius: 16px;
+    padding: 26px;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+}
+
+/* Confirmation modal title */
+.confirm-modal-box h3 {
+    font-size: 22px;
+    margin-bottom: 14px;
+}
+
+/* Confirmation modal message */
+.confirm-modal-message {
+    color: #b8bbd8;
+    font-size: 16px;
+    line-height: 1.4;
+}
+
+/* Row used for the modal action buttons */
+.confirm-modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 26px;
+}
+
+/* Base style for the modal buttons */
+.confirm-modal-buttons button {
+    border: none;
+    border-radius: 8px;
+    padding: 12px 18px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Button used to cancel the selected action */
+.confirm-modal-cancel {
+    background-color: #25283a;
+    color: #ffffff;
+}
+
+/* Button used to confirm the selected action */
+.confirm-modal-confirm {
+    background-color: #ff7a1a;
+    color: #ffffff;
+}
+
+/* Hover effect for the cancel button */
+.confirm-modal-cancel:hover {
+    background-color: #34384f;
+}
+
+/* Hover effect for the confirm button */
+.confirm-modal-confirm:hover {
+    background-color: #e96a0f;
+}
+
+/* Green progress bar container used during construction, production and upgrades */
+.progress-bar {
+    width: 100%;
+    height: 10px;
+    background-color: #10131d;
+    border: 1px solid #263047;
+    border-radius: 999px;
+    overflow: hidden;
+    margin: 14px 0;
+}
+
+/* Green glowing fill that grows smoothly */
+.progress-fill {
+    width: 0%;
+    height: 100%;
+    background-color: #20c463;
+    border-radius: 999px;
+    box-shadow: 0 0 12px rgba(32, 196, 99, 0.9);
+    transition: width 0.05s linear;
+}
+
+/* Main card used to show the player leaderboard */
+.leaderboard-card {
+    background-color: #171923;
+    border: 1px solid #2d3142;
+    border-radius: 14px;
+    padding: 24px;
+    max-width: 900px;
+}
+
+/* Leaderboard title */
+.leaderboard-card h3 {
+    font-size: 22px;
+    margin-bottom: 8px;
+}
+
+/* Small leaderboard description */
+.leaderboard-card > p {
+    color: #9fa3ca;
+    margin-bottom: 22px;
+}
+
+/* List filled by JavaScript with Fetch API */
+.leaderboard-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Default leaderboard row */
+.leaderboard-row {
+    display: grid;
+    grid-template-columns: 70px 1fr 180px;
+    align-items: center;
+    background-color: #11121a;
+    border: 1px solid #25283a;
+    border-radius: 10px;
+    padding: 16px;
+}
+
+/* First place highlighted in gold */
+.leaderboard-row.first-place {
+    border-color: #facc15;
+    box-shadow: 0 0 14px rgba(250, 204, 21, 0.35);
+}
+
+/* Second place highlighted in silver */
+.leaderboard-row.second-place {
+    border-color: #c0c0c0;
+    box-shadow: 0 0 14px rgba(192, 192, 192, 0.25);
+}
+
+/* Third place highlighted in bronze */
+.leaderboard-row.third-place {
+    border-color: #cd7f32;
+    box-shadow: 0 0 14px rgba(205, 127, 50, 0.25);
+}
+
+/* Leaderboard position number */
+.leaderboard-row strong {
+    color: #ffffff;
+}
+
+/* Leaderboard text */
+.leaderboard-row span {
+    color: #d8dcff;
+}
+
+/* Right side value with total earned */
+.leaderboard-row span:last-child {
+    text-align: right;
+    color: #20c463;
+    font-weight: bold;
+}
+
+/* Main card used to show all available player ranks */
+.ranks-card {
+    background-color: #171923;
+    border: 1px solid #2d3142;
+    border-radius: 14px;
+    padding: 24px;
+    max-width: 900px;
+}
+
+/* Title inside the ranks card */
+.ranks-card h3 {
+    font-size: 22px;
+    margin-bottom: 8px;
+}
+
+/* Small description inside the ranks card */
+.ranks-card > p {
+    color: #9fa3ca;
+    margin-bottom: 22px;
+}
+
+/* Vertical list of rank rows */
+.ranks-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Individual row showing reputation needed and rank name */
+.rank-row {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    align-items: center;
+    background-color: #11121a;
+    border: 1px solid #25283a;
+    border-radius: 10px;
+    padding: 16px;
+}
+
+/* Reputation requirement shown on each rank row */
+.rank-row strong {
+    color: #20c463;
+}
+
+/* Rank name text */
+.rank-row span {
+    color: #d8dcff;
+    font-weight: bold;
+}
+
+/* Highlights the player's current rank in the ranks page */
+.rank-row.current-rank {
+    border-color: #20c463;
+    background-color: #10231a;
+    box-shadow: 0 0 14px rgba(32, 196, 99, 0.35);
+}
+
+/* Makes the current rank name stand out */
+.rank-row.current-rank span {
+    color: #20c463;
+}
+
+/* Makes the current rank requirement stand out */
+.rank-row.current-rank strong {
+    color: #20c463;
+}
+
+/* Keeps emojis visually aligned with text labels */
+nav a,
+.logout,
+.business-card h3,
+.manager-card h3 {
+    line-height: 1.3;
+}
+
+/* Keeps the business header aligned in one clean row */
+.business-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+/* Left side of the business card header */
+.business-main-info {
+    min-width: 0;
+    flex: 1;
+}
+
+/* Aligns business name, level badge and state in the same row */
+.business-title-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: nowrap;
+}
+
+/* Prevents long business names from breaking the layout */
+.business-title-row h3 {
+    margin: 0;
+    white-space: normal;
+    line-height: 1.2;
+}
+
+/* Purple badge used to show the current business level */
+.level-badge {
+    background-color: #2d1b4f;
+    color: #b05cff;
+    border: 1px solid #6d35b8;
+    border-radius: 8px;
+    padding: 5px 9px;
+    font-size: 13px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+/* State line used next to the level badge */
+.business-state {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-weight: bold;
+    margin: 0;
+    white-space: nowrap;
+}
+
+/* Small dot used before each state */
+.business-state span {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+/* Ready and completed states use green */
+.state-ready,
+.state-completed {
+    color: #20c463;
+}
+
+.state-ready span,
+.state-completed span {
+    background-color: #20c463;
+    box-shadow: 0 0 8px rgba(32, 196, 99, 0.8);
+}
+
+/* Busy states use orange */
+.state-building,
+.state-producing,
+.state-upgrading {
+    color: #ffb84d;
+}
+
+.state-building span,
+.state-producing span,
+.state-upgrading span {
+    background-color: #ffb84d;
+    box-shadow: 0 0 8px rgba(255, 184, 77, 0.8);
+}
+
+/* Keeps profit fixed on the right side */
+.profit {
+    text-align: right;
+    min-width: 90px;
+}
+
+/* Row with small business information boxes */
+.business-meta {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 18px 0;
+}
+
+/* Small metadata box used for time, upgrade cost and reputation reward */
+.meta-box {
+    background-color: #11121a;
+    color: #d8dcff;
+    border: 1px solid #25283a;
+    border-radius: 10px;
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* Container for countdown and progress bar */
+.timer-zone {
+    width: 100%;
+    margin: 16px 0;
+}
+
+/* Small countdown text shown above progress bars */
+.timer-countdown {
+    display: block;
+    margin-bottom: 7px;
+    color: #9fa3ca;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+/* Centers resource text and values */
+.resource-box {
+    text-align: center;
+}
+
+/* Keeps the resource value centered and readable */
+.resource-box strong {
+    display: block;
+    text-align: center;
+}
+
+/* Restores the resource cards in the top bar */
+.resource-box {
+    min-width: 150px;
+    background-color: #171923;
+    border: 1px solid #39313a;
+    border-radius: 14px;
+    padding: 14px 20px;
+    text-align: center;
+}
+
+/* Centers the resource label with its emoji */
+.resource-box span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    color: #8f93b8;
+    font-size: 15px;
+}
+
+/* Centers and highlights the resource value */
+.resource-box strong {
+    display: block;
+    margin-top: 4px;
+    color: #ff7a1a;
+    font-size: 20px;
+    text-align: center;
+}
+
+/* Keeps the business card header organized */
+.business-card-header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+    gap: 16px;
+}
+
+/* Left side of the business card header */
+.business-main-info {
+    min-width: 0;
+}
+
+/* Keeps icon, name, level and state aligned in one row */
+.business-title-row {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    flex-wrap: nowrap;
+    min-width: 0;
+}
+
+/* Circular icon used before each business name */
+.business-icon {
+    width: 34px;
+    height: 34px;
+    min-width: 34px;
+    border-radius: 50%;
+    background-color: #17251f;
+    border: 1px solid #146c43;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 19px;
+}
+
+/* Keeps business names readable without breaking the header */
+.business-title-row h3 {
+    margin: 0;
+    font-size: 18px;
+    line-height: 1.15;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Allows locked business names to stay simple */
+.locked-title-row h3 {
+    max-width: none;
+}
+
+/* Purple badge used to show the current business level */
+.level-badge {
+    background-color: #2d1b4f;
+    color: #b05cff;
+    border: 1px solid #6d35b8;
+    border-radius: 8px;
+    padding: 5px 8px;
+    font-size: 13px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+/* State line used next to the level badge */
+.business-state {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-weight: bold;
+    margin: 0;
+    white-space: nowrap;
+    font-size: 16px;
+}
+
+/* Small dot used before each state */
+.business-state span {
+    width: 8px;
+    height: 8px;
+    min-width: 8px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+/* Keeps profit aligned to the right */
+.profit {
+    text-align: right;
+    min-width: 82px;
+}
+
+/* Makes profit labels compact */
+.profit span {
+    display: block;
+    color: #8f93b8;
+    font-size: 13px;
+}
+
+/* Makes profit values visible */
+.profit strong {
+    color: #00d26a;
+    font-size: 20px;
+}
+
+/* Keeps metadata boxes aligned and compact */
+.business-meta {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 18px 0;
+}
+
+/* Small metadata boxes for time, upgrade cost and reputation */
+.meta-box {
+    background-color: #11121a;
+    color: #d8dcff;
+    border: 1px solid #25283a;
+    border-radius: 10px;
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* Keeps the timer text above the progress bar */
+.timer-zone {
+    width: 100%;
+    margin: 16px 0;
+}
+
+/* Countdown shown above progress bars */
+.timer-countdown {
+    display: block;
+    margin-bottom: 7px;
+    color: #9fa3ca;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+/* Fixes business header spacing so business names are not cut */
+.business-card-header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: flex-start;
+    gap: 14px;
+}
+
+/* Keeps the left side of the card flexible */
+.business-main-info {
+    min-width: 0;
+    width: 100%;
+}
+
+/* Allows the title row to wrap naturally when the name is longer */
+.business-title-row {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    flex-wrap: wrap;
+    min-width: 0;
+}
+
+/* Keeps the business icon fixed and aligned */
+.business-icon {
+    width: 34px;
+    height: 34px;
+    min-width: 34px;
+    border-radius: 50%;
+    background-color: #17251f;
+    border: 1px solid #146c43;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 19px;
+}
+
+/* Shows the full business name without cutting it */
+.business-title-row h3 {
+    margin: 0;
+    font-size: 18px;
+    line-height: 1.15;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: unset;
+    max-width: 210px;
+}
+
+/* Keeps the level badge readable */
+.level-badge {
+    background-color: #2d1b4f;
+    color: #b05cff;
+    border: 1px solid #6d35b8;
+    border-radius: 8px;
+    padding: 5px 8px;
+    font-size: 13px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+/* Keeps the business state aligned after the level badge */
+.business-state {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-weight: bold;
+    margin: 0;
+    white-space: nowrap;
+    font-size: 16px;
+}
+
+/* Keeps profit fixed on the right side */
+.profit {
+    text-align: right;
+    min-width: 78px;
+}
+
+/* Organizes the business title area vertically */
+.business-title-row {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 0;
+}
+
+/* Keeps the business icon and name aligned on the same line */
+.business-name-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+}
+
+/* Keeps the business icon fixed next to the name */
+.business-name-row .business-icon {
+    width: 34px;
+    height: 34px;
+    min-width: 34px;
+    border-radius: 50%;
+    background-color: #17251f;
+    border: 1px solid #146c43;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 19px;
+}
+
+/* Shows the full business name next to the icon */
+.business-name-row h3 {
+    margin: 0;
+    font-size: 18px;
+    line-height: 1.2;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: unset;
+}
+
+/* Centers level and state below the name */
+.business-status-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+/* Centers the metadata boxes inside the card */
+.business-meta {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 18px 0;
+}
+
+/* Keeps the small metadata boxes balanced */
+.meta-box {
+    min-width: 92px;
+    text-align: center;
+}
+
+/* Keeps the card header with business info on the left and profit on the right */
+.business-card-header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+/* Keeps the business title block aligned to the left */
+.business-title-row {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 10px;
+    min-width: 0;
+}
+
+/* Keeps the business icon and name on the same line */
+.business-name-row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    min-width: 0;
+    width: 100%;
+}
+
+/* Keeps the business icon fixed before the name */
+.business-name-row .business-icon {
+    width: 34px;
+    height: 34px;
+    min-width: 34px;
+    border-radius: 50%;
+    background-color: #17251f;
+    border: 1px solid #146c43;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 19px;
+}
+
+/* Keeps the business name in the same line as the icon */
+.business-name-row h3 {
+    margin: 0;
+    font-size: 18px;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: visible;
+    text-overflow: unset;
+}
+
+/* Keeps level and state aligned to the left under the name */
+.business-status-row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
+    flex-wrap: nowrap;
+    width: 100%;
+}
+
+/* Keeps the level badge compact */
+.level-badge {
+    background-color: #2d1b4f;
+    color: #b05cff;
+    border: 1px solid #6d35b8;
+    border-radius: 8px;
+    padding: 5px 9px;
+    font-size: 13px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+/* Keeps the business state next to the level badge */
+.business-state {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-weight: bold;
+    margin: 0;
+    white-space: nowrap;
+    font-size: 16px;
+}
+
+/* Keeps locked business icon and name aligned in one line */
+.locked-title-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+/* Keeps locked business names on the same line as the icon */
+.locked-title-row h3 {
+    margin: 0;
+    white-space: nowrap;
+}
+
+/* Makes history messages easier to read */
+.history-item p {
+    color: #ffffff;
+    font-weight: bold;
+    margin-bottom: 6px;
+    line-height: 1.4;
+}
+
+/* Keeps history dates subtle */
+.history-item span {
+    color: #9fa3ca;
+    font-size: 14px;
+}

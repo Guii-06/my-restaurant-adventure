@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - My Restaurant Adventure</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
+</head>
+<body>
+    <div class="auth-page">
+        <form class="auth-card" method="POST">
+            <h1>My Restaurant<br><span>Adventure</span></h1>
+
+            <h2>Login</h2>
+
+            {% if error %}
+                <p class="error-message">{{ error }}</p>
+            {% endif %}
+
+            <!-- Username used to identify the player account -->
+            <label>Username</label>
+            <input type="text" name="username" required>
+
+            <!-- Password used to authenticate the player account -->
+            <label>Password</label>
+            <input type="password" name="password" required>
+
+            <button type="submit">Entrar</button>
+
+            <p>
+                Ainda não tens conta?
+                <a href="{{ url_for('register_page') }}">Registar</a>
+            </p>
+        </form>
+    </div>
+</body>
+</html>

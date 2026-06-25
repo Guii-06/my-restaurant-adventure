@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestores - My Restaurant Adventure</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
+</head>
+<body data-page="managers">
+    <div class="layout">
+
+        <aside class="sidebar">
+            <h1>My Restaurant<br><span>Adventure</span></h1>
+
+            <div class="player-info">
+                <strong>{{ user[1] }}</strong>
+                <!-- Shows the current player rank with icon -->
+                <p>{{ rank_icon(rank_name) }} {{ rank_name }}</p>
+            </div>
+
+            <nav>
+                <!-- Opens the restaurants page -->
+                <a href="{{ url_for('dashboard_page') }}">🍽️ Restaurantes</a>
+
+                <!-- Highlights the managers page -->
+                <a class="active" href="{{ url_for('managers_page') }}">👔 Gestores</a>
+
+                <!-- Opens the leaderboard page -->
+                <a href="{{ url_for('leaderboard_page') }}">🏆 Leaderboard</a>
+                <!-- Opens the ranks page -->
+                <a href="{{ url_for('ranks_page') }}">⭐ Ranks</a>
+                <!-- Opens the history page -->
+                <a href="{{ url_for('history_page') }}">📜 Histórico</a>
+            </nav>
+
+            <!-- Logs out the current player -->
+            <!-- Asks for confirmation before logging out -->
+            <a class="logout confirm-action"
+            data-confirm-message="Tens a certeza que queres terminar sessão?"
+            href="{{ url_for('logout_page') }}">
+                ⏻ Logout
+            </a>
+        </aside>
+
+        <main class="main-content">
+            <header class="topbar">
+                <h2>Gestores</h2>
+
+                <div class="resources">
+                    <div class="resource-box">
+                        <!-- Shows the player's current money -->
+                        <span>💰 Dinheiro</span>
+                        <strong>{{ format_value(user[3]) }}€</strong>
+                    </div>
+
+                    <div class="resource-box">
+                        <!-- Shows the player's current reputation -->
+                        <span>⭐ Reputação</span>
+                        <strong>{{ user[4] }}</strong>
+                    </div>
+                </div>
+            </header>
+            <!-- Shows temporary game validation messages with success or error style -->
+            {% if game_message %}
+                <div class="game-message {{ game_message_type }}">
+                    {{ game_message }}
+                </div>
+            {% endif %}
+
+            <h1 class="page-title">Equipa de Gestores:</h1>
+
+            <!-- Shows all manager cards with the correct purchase state -->
+            <div class="manager-grid">
+                {% for manager in managers %}
+                    <section class="manager-card">
+                        <div class="card-header">
+                            <div>
+                                <!-- Shows the manager icon and name -->
+                                <h3>{{ manager_icon(manager.manager_name) }} {{ manager.manager_name }}</h3>
+                                <p class="manager-restaurant">Restaurante: {{ manager.business_name }}</p>
+                            </div>
+                        </div>
+
+                        <div class="manager-details">
+                            <!-- Shows the formatted manager cost -->
+                            <p><strong>Custo:</strong> {{ format_value(manager.manager_money_cost) }}€ + {{ manager.manager_rep_cost }} Reputação</p>
+                            <p><strong>Efeito:</strong> Produção Automática</p>
+                        </div>
+
+                        {% if manager.has_manager %}
+                            <span class="manager-button button-owned">Já adquirido</span>
+                            <p class="manager-helper">Este gestor já está ativo neste restaurante.</p>
+
+                        {% elif not manager.is_business_unlocked %}
+                            <span class="manager-button button-disabled">Bloqueado</span>
+                            <p class="manager-helper">Para desbloquear, compre primeiro: {{ manager.business_name }}.</p>
+
+                        {% elif manager.can_buy %}
+                            <!-- Asks for confirmation before hiring a manager -->
+                            <a class="manager-button button-buy confirm-action"
+                            data-confirm-message="Tens a certeza que queres contratar este gestor?"
+                            href="{{ url_for('buy_manager_page', user_business_id=manager.user_business_id) }}">
+                                Comprar
+                            </a>
+                            <p class="manager-helper">Tens recursos suficientes para contratar este gestor.</p>
+
+                        {% else %}
+                            <span class="manager-button button-disabled">Comprar</span>
+                            <p class="manager-helper">{{ manager.missing_message }}.</p>
+                        {% endif %}
+                    </section>
+                {% endfor %}
+            </div>
+        </main>
+
+    </div>
+
+    <!-- Custom modal used to confirm important player actions -->
+    <div class="confirm-modal">
+        <div class="confirm-modal-box">
+            <h3>Confirmar ação</h3>
+            <p class="confirm-modal-message"></p>
+
+            <div class="confirm-modal-buttons">
+                <button class="confirm-modal-cancel">Cancelar</button>
+                <button class="confirm-modal-confirm">Confirmar</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Loads the main JavaScript file for frontend interactions -->
+    <script src="{{ url_for('static', filename='scripts/main.js') }}"></script>
+</body>
+</html>

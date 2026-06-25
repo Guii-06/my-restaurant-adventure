@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Ranks - My Restaurant Adventure</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
+</head>
+
+<body data-page="ranks">
+    <div class="layout">
+
+        <!-- Sidebar with player rank and navigation -->
+        <aside class="sidebar">
+            <h1>My Restaurant<br><span>Adventure</span></h1>
+
+            <div class="player-info">
+                <strong>{{ user[1] }}</strong>
+
+                <!-- Shows the current player rank with icon -->
+                <p>{{ rank_icon(rank_name) }} {{ rank_name }}</p>
+            </div>
+
+            <nav>
+                <!-- Opens the restaurants page -->
+                <a href="{{ url_for('dashboard_page') }}">🍽️ Restaurantes</a>
+                <!-- Opens the managers page -->
+                <a href="{{ url_for('managers_page') }}">👔 Gestores</a>
+                <!-- Opens the leaderboard page -->
+                <a href="{{ url_for('leaderboard_page') }}">🏆 Leaderboard</a>
+
+                <!-- Highlights the ranks page -->
+                <a class="active" href="{{ url_for('ranks_page') }}">⭐ Ranks</a>
+
+                <!-- Opens the history page -->
+                <a href="{{ url_for('history_page') }}">📜 Histórico</a>
+            </nav>
+
+            <!-- Asks for confirmation before logging out -->
+            <a class="logout confirm-action"
+            data-confirm-message="Tens a certeza que queres terminar sessão?"
+            href="{{ url_for('logout_page') }}">
+                ⏻ Logout
+            </a>
+        </aside>
+
+        <main class="main-content">
+            <header class="topbar">
+                <h2>Ranks</h2>
+
+                <div class="resources">
+                    <div class="resource-box">
+                        <span>⭐ Reputação Total</span>
+                        <strong>{{ user[5] }}</strong>
+                    </div>
+
+                    <div class="resource-box">
+                        <span>Rank Atual</span>
+                        <strong>{{ rank_name }}</strong>
+                    </div>
+                </div>
+            </header>
+
+            <section class="ranks-card">
+                <h3>Ranks disponíveis</h3>
+                <p>O rank depende da reputação total acumulada ao longo do jogo.</p>
+
+                <div class="ranks-list">
+                    {% for rank in ranks %}
+                        <!-- Highlights the player's current rank -->
+                        <div class="rank-row {% if rank[1] == rank_name %}current-rank{% endif %}">
+                            <!-- Shows the reputation needed for each rank -->
+                            <strong>{{ rank[0] }} Rep</strong>
+
+                            <!-- Shows the rank icon and rank name -->
+                            <span>{{ rank_icon(rank[1]) }} {{ rank[1] }}</span>
+                        </div>
+                    {% endfor %}
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Custom modal used to confirm important player actions -->
+    <div class="confirm-modal">
+        <div class="confirm-modal-box">
+            <h3>Confirmar ação</h3>
+            <p class="confirm-modal-message"></p>
+
+            <div class="confirm-modal-buttons">
+                <button class="confirm-modal-cancel">Cancelar</button>
+                <button class="confirm-modal-confirm">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loads the main JavaScript file for frontend interactions -->
+    <script src="{{ url_for('static', filename='scripts/main.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>My Restaurant Adventure</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
+</head>
+
+<!-- Identifies this page so JavaScript knows that dashboard logic can run here -->
+<body data-page="dashboard">
+    <div class="layout">
+
+        <!-- Sidebar with navigation and player information -->
+        <aside class="sidebar">
+            <h1>My Restaurant<br><span>Adventure</span></h1>
+
+            <div class="player-info">
+                <strong>{{ user[1] }}</strong>
+                <!-- Shows the current player rank with icon -->
+                <p>{{ rank_icon(rank_name) }} {{ rank_name }}</p>
+            </div>
+
+            <nav>
+                <!-- Highlights the restaurants page -->
+                <a class="active" href="{{ url_for('dashboard_page') }}">🍽️ Restaurantes</a>
+                
+                <!-- Opens the managers page -->
+                <a href="{{ url_for('managers_page') }}">👔 Gestores</a>
+                <!-- Opens the leaderboard page -->
+                <a href="{{ url_for('leaderboard_page') }}">🏆 Leaderboard</a>
+                <!-- Opens the ranks page -->
+                <a href="{{ url_for('ranks_page') }}">⭐ Ranks</a>
+                <!-- Opens the history page -->
+                <a href="{{ url_for('history_page') }}">📜 Histórico</a>
+            </nav>
+            <!-- Asks for confirmation before logging out -->
+            <!-- Asks for confirmation before logging out -->
+            <a class="logout confirm-action"
+            data-confirm-message="Tens a certeza que queres terminar sessão?"
+            href="{{ url_for('logout_page') }}">
+                ⏻ Logout
+            </a>
+        </aside>
+
+        <!-- Main dashboard content -->
+        <main class="main-content">
+
+            <!-- Top bar with page title and player resources -->
+            <header class="topbar">
+                <h2>Restaurantes</h2>
+
+                <div class="resources">
+                    <div class="resource-box">
+                        <!-- Shows the player's current money -->
+                        <span>💰 Dinheiro</span>
+                        <strong>{{ format_value(user[3]) }}€</strong>
+                    </div>
+
+                    <div class="resource-box">
+                        <!-- Shows the player's current reputation -->
+                        <span>⭐ Reputação</span>
+                        <strong>{{ user[4] }}</strong>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Shows temporary game validation messages with success or error style -->
+            {% if game_message %}
+                <div class="game-message {{ game_message_type }}">
+                    {{ game_message }}
+                </div>
+            {% endif %}
+
+            <!-- Grid with owned and locked businesses -->
+            <div class="business-grid">
+
+                <!-- Shows all businesses already bought by the player -->
+                {% for business in businesses %}
+                    <section class="business-card active">
+
+                        <!-- Card header with business identity, state and profit -->
+                        <div class="card-header business-card-header">
+
+                            <!-- Left side with icon, name, level and state -->
+                            <div class="business-main-info">
+                                <!-- Shows the business icon and name aligned together -->
+                                <div class="business-title-row">
+                                    <!-- Shows the business icon and name aligned together -->
+                                    <div class="business-name-row">
+                                        <span class="business-icon">{{ business_icon(business[9]) }}</span>
+                                        <h3>{{ business[9] }}</h3>
+                                    </div>
+
+                                    <!-- Shows level and state below the business name -->
+                                    <div class="business-status-row">
+                                        {% if business[3] >= 10 %}
+                                            <span class="level-badge">MÁX</span>
+                                        {% else %}
+                                            <span class="level-badge">Nv. {{ business[3] }}</span>
+                                        {% endif %}
+
+                                        {% if business[4] == "building" %}
+                                            <p class="business-state state-building"><span></span>Em construção</p>
+                                        {% elif business[4] == "ready" %}
+                                            <p class="business-state state-ready"><span></span>Pronto</p>
+                                        {% elif business[4] == "producing" %}
+                                            <p class="business-state state-producing"><span></span>A produzir</p>
+                                        {% elif business[4] == "upgrading" %}
+                                            <p class="business-state state-upgrading"><span></span>A evoluir</p>
+                                        {% elif business[4] == "completed" %}
+                                            <p class="business-state state-completed"><span></span>Completo</p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Right side with current profit -->
+                            <div class="profit">
+                                <span>Lucro</span>
+
+                                <!-- Shows formatted current profit based on the business level -->
+                                <strong>{{ format_value(business[13] * (2 ** (business[3] - 1))) }}€</strong>
+                            </div>
+                        </div>
+
+                        <!-- Shows small metadata boxes with time, upgrade cost and reputation reward -->
+                        <div class="business-meta">
+                            <span class="meta-box">⏱️ {{ business[12] }}s</span>
+
+                            {% if business[3] < 10 %}
+                                <span class="meta-box">⬆️ {{ format_value(business[10] * (2 ** business[3])) }}€</span>
+                                <span class="meta-box">⭐ +{{ business[15] }}</span>
+                            {% else %}
+                                <span class="meta-box">MÁX</span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Shows the active manager when the business already has one -->
+                        {% if business[5] == 1 %}
+                            <p class="manager-active">Gestor Ativo - {{ business[16] }}</p>
+                        {% endif %}
+
+                        <!-- Shows the countdown above the progress bar while the business is busy -->
+                        {% if business[4] == "building" %}
+                            <div class="timer-zone">
+                                <span class="timer-countdown"></span>
+
+                                <div class="progress-bar timer-bar"
+                                    data-finish-time="{{ business[6] }}"
+                                    data-total-time="{{ business[11] }}">
+                                    <div class="progress-fill"></div>
+                                </div>
+                            </div>
+
+                        {% elif business[4] == "producing" %}
+                            <div class="timer-zone">
+                                <span class="timer-countdown"></span>
+
+                                <div class="progress-bar timer-bar"
+                                    data-finish-time="{{ business[7] }}"
+                                    data-total-time="{{ business[12] }}">
+                                    <div class="progress-fill"></div>
+                                </div>
+                            </div>
+
+                        {% elif business[4] == "upgrading" %}
+                            <div class="timer-zone">
+                                <span class="timer-countdown"></span>
+
+                                <div class="progress-bar timer-bar"
+                                    data-finish-time="{{ business[8] }}"
+                                    data-total-time="{{ upgrade_time(business[9], business[3]) }}">
+                                    <div class="progress-fill"></div>
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        <!-- Shows the main business action and keeps the upgrade action visible -->
+                        <div class="buttons">
+
+                            {% if business[4] == "building" %}
+                                <span class="main-btn disabled-btn">Em construção...</span>
+
+                            {% elif business[4] == "ready" %}
+                                <a class="main-btn" href="{{ url_for('start_production_page', user_business_id=business[0]) }}">
+                                    Produzir
+                                </a>
+
+                            {% elif business[4] == "producing" %}
+                                <span class="main-btn disabled-btn">A produzir...</span>
+
+                            {% elif business[4] == "upgrading" %}
+                                <span class="main-btn disabled-btn">A evoluir...</span>
+
+                            {% elif business[4] == "completed" %}
+                                <!-- Collects the generated profit with a formatted value -->
+                                <a class="main-btn" href="{{ url_for('collect_profit_page', user_business_id=business[0]) }}">
+                                    💰 Recolher · {{ format_value(business[13] * (2 ** (business[3] - 1))) }}€
+                                </a>
+                            {% endif %}
+
+                            {% if business[3] >= 10 %}
+                                <!-- Shows that the business already reached the maximum level -->
+                                <span class="secondary-btn disabled-btn">Nível máximo</span>
+
+                            {% elif business[4] == "ready" or business[4] == "completed" %}
+                                <!-- Allows the player to upgrade when the business is ready or has finished production -->
+                                <a class="secondary-btn confirm-action"
+                                data-confirm-message="Tens a certeza que queres evoluir este restaurante?"
+                                href="{{ url_for('upgrade_business_page', user_business_id=business[0]) }}">
+                                    Evoluir
+                                </a>
+
+                            {% else %}
+                                <!-- Keeps the upgrade button visible but disabled while the business is busy -->
+                                <span class="secondary-btn disabled-btn">Evoluir</span>
+                            {% endif %}
+
+                        </div>
+
+                    </section>
+                {% endfor %}
+
+                <!-- Shows businesses that the player has not bought yet -->
+                {% for business_type in business_types %}
+                    <section class="business-card locked">
+                        <div class="card-header">
+                            <div>
+                                <!-- Shows the locked business icon and name -->
+                                <div class="business-title-row locked-title-row">
+                                    <span class="business-icon">{{ business_icon(business_type[1]) }}</span>
+                                    <h3>{{ business_type[1] }}</h3>
+                                </div>
+                                <p>Estado: Bloqueado</p>
+                            </div>
+
+                            <div class="profit">
+                                <span>Custo</span>
+                                <!-- Shows the formatted business purchase cost -->
+                                <strong>{{ format_value(business_type[2]) }}€</strong>
+                            </div>
+                        </div>
+
+                        <!-- Asks for confirmation before buying a new business -->
+                        <a class="buy-btn confirm-action"
+                           data-confirm-message="Tens a certeza que queres comprar este restaurante?"
+                           href="{{ url_for('buy_business_page', business_type_id=business_type[0]) }}">
+                            Comprar
+                        </a>
+                    </section>
+                {% endfor %}
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Custom modal used to confirm important player actions -->
+    <div class="confirm-modal">
+        <div class="confirm-modal-box">
+            <h3>Confirmar ação</h3>
+            <p class="confirm-modal-message"></p>
+
+            <div class="confirm-modal-buttons">
+                <button class="confirm-modal-cancel">Cancelar</button>
+                <button class="confirm-modal-confirm">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loads the main JavaScript file for frontend interactions -->
+    <script src="{{ url_for('static', filename='scripts/main.js') }}"></script>
+</body>
+</html>
